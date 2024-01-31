@@ -19,5 +19,17 @@ ListDC* creerListe();
 int listeVide(ListDC* l);
 
 void insererEnTete(ListDC* l, int value);
+void insererEnFin(ListDC* l, int value);
+
+void afficher(ListDC* l);
+
+ListDCEl* rechercher(ListDC* l, int value);
+
+void supprimerElement(ListDC* l, ListDCEl* el);
+
+int supprimerTete(ListDC* l);
+int supprimerFin(ListDC* l);
+
+void desalloueListe(ListDC* l);
 
 #endif
