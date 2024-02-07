@@ -44,3 +44,5 @@ On écrit Cx => Cy la tentantive de placement en case Cx qui résulte en un éch
 | C14 | 01 | 01 | 01 |
 | C15 | - | - | 11 (C5 => C6 => C8 => C11 => C15) |
 
+Pour le probing linéaire, le nombre de tentative d'insertion moyen causant un échec est 28/3 et pour celui quadratique 22/13.  
+Le probing quadratique est meilleur dans ce cas.  
