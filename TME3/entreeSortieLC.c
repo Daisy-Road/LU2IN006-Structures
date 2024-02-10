@@ -37,6 +37,10 @@ void enregistrer_biblio(Biblio* b, char* nom_fic) {
 }
 
 void afficher_livre(Livre* l) {
+    if (l==NULL){
+        printf("Ce livre n'existe pas\n");
+        return;
+    }
     printf("Livre %d: \"%s\" de %s\n", l->num, l->titre, l->auteur);
 }
 
@@ -121,6 +125,20 @@ void suppression_auteur(Biblio* b, char* auteur) {
     }
 }
 
+void suppression_livre(Biblio* b, int num, char* titre, char* auteur) {
+    Livre* curr = b->L;
+    Livre* prev = NULL;
+    while(curr) {
+        if((curr->num == num) && (strcmp(curr->auteur,auteur)==0) && (strcmp(curr->titre,titre)==0) ){
+           if(prev) prev->suiv = curr->suiv;
+           else b->L = curr->suiv;
+           liberer_livre(curr);
+        }
+        prev = curr;
+        curr = curr->suiv;
+    }
+}
+
 void fusion_biblio(Biblio* b1, Biblio* b2){
     Livre* curr= b1->L;
     if(!curr){
@@ -137,22 +155,24 @@ void fusion_biblio(Biblio* b1, Biblio* b2){
 
 }
 
-Livre* recherche_livres(Biblio* b){
+Biblio* recherche_doublons(Biblio* b){ /* Doublons dans la liste finale. Peut êtrte optimisé avec un break */
     Livre* curr= b->L;
     Livre* curr2;
     Biblio* res= creer_biblio();
-    int bool=1
-    while (curr){
-        
-            curr2=b1->L;
-            while(curr2){
-                if (strcmp(curr->titre,curr2->titre)==0 && strcmp(curr->auteur,curr2->auteur)==0&&curr->num!=curr2->num){
-                    inserer_en_tete(res,curr->num,titre,auteur);
-       
-
+    int bool;
+    while(curr){
+        bool=1;
+        curr2=b->L;
+        while(curr2){
+            if ((strcmp(curr->titre,curr2->titre)==0) && (strcmp(curr->auteur,curr2->auteur)==0) && (curr->num!=curr2->num) && (bool)){
+                inserer_en_tete(res,curr->num,curr->titre,curr->auteur);
+                bool=0;
             }
-                    
+            curr2=curr2->suiv;
+        }
+        curr=curr->suiv;            
     }
+    return res;
 
 }
 
