@@ -1,2 +1,5 @@
 # Removing binaries
 *.out
+
+# Removing object file
+*.o
