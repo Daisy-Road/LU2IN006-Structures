@@ -15,4 +15,4 @@ main.out: biblioLC.o entreeSortieLC.o main.o
 	$(CC) biblioLC.o entreeSortieLC.o main.o -o main.out
 
 clean:
-	rm -f main.out biblioLC.o entreeSortieLC.o main.o
+	rm -f main.out *.o
