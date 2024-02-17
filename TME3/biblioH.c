@@ -43,6 +43,7 @@ void liberer_biblio(BiblioH *b) {
     for(int i = 0; i<b->m; i++) {
         liberer_livre(b->T[i]);
     }
+    free(b);
 }
 
 int fonctionHachage(int cle, int m) {
@@ -55,4 +56,5 @@ void inserer(BiblioH* b, int num, char* titre, char* auteur) {
     int hash = fonctionHachage(new->clef, b->m);
     new->suiv = b->T[hash];
     b->T[hash] = new;
+    b->nE++;
 }

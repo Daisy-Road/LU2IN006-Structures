@@ -88,58 +88,61 @@ Biblio* recherche_auteur(Biblio* b, char* auteur) {
 
 void suppression_num(Biblio* b, int num) {
     Livre* curr = b->L;
+    Livre* nxt = NULL;
     Livre* prev = NULL;
     while (curr) {
+        nxt = curr->suiv;
         if (curr->num == num) {
-            if (prev) prev->suiv = curr->suiv;
-            else b->L = curr->suiv;
+            if (prev) prev->suiv = nxt;
+            else b->L = nxt;
             liberer_livre(curr);
-        }
-        prev = curr;
-        curr = curr->suiv;
+        } else prev = curr; // No element removed, previous has changed
+        curr = nxt;
     }
 }
 
 void suppression_titre(Biblio* b, char* titre) {
     Livre* curr = b->L;
     Livre* prev = NULL;
+    Livre* nxt = NULL;
     while (curr) {
+        nxt = curr->suiv;
         if (strcmp(curr->titre, titre) == 0) {
-            if (prev) prev->suiv = curr->suiv;
-            else b->L = curr->suiv;
+            if (prev) prev->suiv = nxt;
+            else b->L = nxt;
             liberer_livre(curr);
-        }
-        prev = curr;
-        curr = curr->suiv;
+        } else prev = curr; // No element removed, previous has changed
+        curr = nxt;
     }
 }
 
 void suppression_auteur(Biblio* b, char* auteur) {
     Livre* curr = b->L;
     Livre* prev = NULL;
+    Livre* nxt = NULL;
     while (curr) {
-        if (strcmp(curr->auteur, auteur) == 0) {
-            if (prev) prev->suiv = curr->suiv;
-            else b->L = curr->suiv;
+        nxt = curr->suiv;
+        if (strcmp(curr->titre, auteur) == 0) {
+            if (prev) prev->suiv = nxt;
+            else b->L = nxt;
             liberer_livre(curr);
-        }
-        prev = curr;
-        curr = curr->suiv;
+        } else prev = curr; // No element removed, previous has changed
+        curr = nxt;
     }
 }
 
 void suppression_livre(Biblio* b, int num, char* titre, char* auteur) {
     Livre* curr = b->L;
     Livre* prev = NULL;
+    Livre* nxt = NULL;
     while (curr) {
         if ((curr->num == num) && (strcmp(curr->auteur, auteur) == 0) &&
             (strcmp(curr->titre, titre) == 0)) {
-            if (prev) prev->suiv = curr->suiv;
-            else b->L = curr->suiv;
+            if (prev) prev->suiv = nxt;
+            else b->L = nxt;
             liberer_livre(curr);
-        }
-        prev = curr;
-        curr = curr->suiv;
+        } else prev = curr; // No element removed, previous has changed
+        curr = nxt;
     }
 }
 
