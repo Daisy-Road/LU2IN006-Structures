@@ -1,5 +1,5 @@
-#include "biblioLC.h"
-#include "entreeSortieLC.h"
+#include "biblioH.h"
+#include "entreeSortieH.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,7 +13,7 @@ void menu() {
            "Afficher bibliothèque", "Rechercher ouvrage par numéro",
            "Rechercher ouvrage pas titre", "Rechercher les livres d'un auteur",
            "Fusionner cette bibliothèque avec une autre",
-           "Rechercher tout les ouvrages avec plusieurs exemplaires\n");
+           "Supprimer tous les ouvrages avec plusieurs exemplaires\n");
 }
 
 void menu_suppression() {
@@ -26,7 +26,7 @@ void menu_suppression() {
 
 int main(int argc, char** argv) {
 
-    Biblio* b = charger_n_entrees(argv[1], atoi(argv[2]));
+    BiblioH* b = charger_n_entrees(argv[1], atoi(argv[2]));
 
     char entree[3]; // An entry shouldn't exceed 1 digit.
                     // (index 1 is for \n, index 2 is for \0)
@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
             fgets(nom, 256, stdin);
             nom[strcspn(nom, "\n")] = 0;
             if (atoi(num) != 0) {
-                inserer_en_tete(b, atoi(num), titre, nom);
+                inserer(b, atoi(num), titre, nom);
                 printf("Livre ajouté\n");
             } else {
                 printf("Erreur format\n");
@@ -94,7 +94,7 @@ int main(int argc, char** argv) {
                 printf("Veuillez écrire le nom de l'auteur de l'ouvrage.\n");
                 fgets(nom, 256, stdin);
                 nom[strcspn(nom, "\n")] = 0;
-                suppression_livre(b, atoi(num), titre, nom);
+                suppression_ouvrage(b, atoi(num), titre, nom);
                 printf("Ouvrage");
                 break;
             default:
@@ -126,7 +126,7 @@ int main(int argc, char** argv) {
         case 6:
             printf("Veuillez écrire le nom de l'auteur de l'ouvrage.\n");
             fgets(auteur, 256, stdin);
-            Biblio* sameAuthor = recherche_auteur(b, auteur);
+            BiblioH* sameAuthor = recherche_auteur(b, auteur);
             afficher_biblio(sameAuthor);
             free(sameAuthor);
             break;
@@ -137,16 +137,14 @@ int main(int argc, char** argv) {
             nom[strcspn(nom, "\n")] = 0;
             printf("Veuillez écrire le nombre de livres du fichier.\n");
             fgets(nb, 256, stdin);
-            Biblio* b2 = charger_n_entrees(nom, atoi(nb));
-            fusion_biblio(b, b2);
+            BiblioH* b2 = charger_n_entrees(nom, atoi(nb));
+            fusion(b, b2);
             printf("Fusion effectuée.\n");
             break;
 
         case 8:
-            printf("Affichage des ouvrages en double\n");
-            Biblio* doublons = recherche_doublons(b);
-            afficher_biblio(doublons);
-            free(doublons);
+            printf("Suppression des doublons...\n");
+            supprimer_doublons(b);
             break;
 
         case 0:

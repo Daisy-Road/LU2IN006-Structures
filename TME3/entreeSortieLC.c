@@ -122,7 +122,7 @@ void suppression_auteur(Biblio* b, char* auteur) {
     Livre* nxt = NULL;
     while (curr) {
         nxt = curr->suiv;
-        if (strcmp(curr->titre, auteur) == 0) {
+        if (strcmp(curr->auteur, auteur) == 0) {
             if (prev) prev->suiv = nxt;
             else b->L = nxt;
             liberer_livre(curr);
