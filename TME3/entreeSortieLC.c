@@ -40,13 +40,14 @@ void enregistrer_biblio(Biblio* b, char* nom_fic) {
 
 void afficher_livre(Livre* l) {
     if (l == NULL) {
-        printf("Ce livre n'existe pas\n");
+        printf("Ce livre n'existe pas.\n");
         return;
     }
     printf("Livre %d: \"%s\" de %s\n", l->num, l->titre, l->auteur);
 }
 
 void afficher_biblio(Biblio* b) {
+    if(!b)return;
     printf("-----[ Bibliothèque ]-----\n");
     Livre* curr = b->L;
     while (curr) {
@@ -57,6 +58,7 @@ void afficher_biblio(Biblio* b) {
 }
 
 Livre* recherche_num(Biblio* b, int num) {
+    if(!b)return NULL;
     Livre* curr = b->L;
     while (curr) {
         if (curr->num == num) return curr;
@@ -66,6 +68,7 @@ Livre* recherche_num(Biblio* b, int num) {
 }
 
 Livre* recherche_titre(Biblio* b, char* titre) {
+    if(!b)return NULL;
     Livre* curr = b->L;
     while (curr) {
         if (strcmp(curr->titre, titre) == 0) return curr;
@@ -75,6 +78,7 @@ Livre* recherche_titre(Biblio* b, char* titre) {
 }
 
 Biblio* recherche_auteur(Biblio* b, char* auteur) {
+    if(!b)return NULL;
     Biblio* res = creer_biblio();
     Livre* curr = b->L;
 
@@ -87,6 +91,7 @@ Biblio* recherche_auteur(Biblio* b, char* auteur) {
 }
 
 void suppression_num(Biblio* b, int num) {
+    if(!b)return;
     Livre* curr = b->L;
     Livre* nxt = NULL;
     Livre* prev = NULL;
@@ -95,6 +100,7 @@ void suppression_num(Biblio* b, int num) {
         if (curr->num == num) {
             if (prev) prev->suiv = nxt;
             else b->L = nxt;
+            afficher_livre(curr);
             liberer_livre(curr);
         } else prev = curr; // No element removed, previous has changed
         curr = nxt;
@@ -102,6 +108,7 @@ void suppression_num(Biblio* b, int num) {
 }
 
 void suppression_titre(Biblio* b, char* titre) {
+    if(!b)return;
     Livre* curr = b->L;
     Livre* prev = NULL;
     Livre* nxt = NULL;
@@ -110,6 +117,7 @@ void suppression_titre(Biblio* b, char* titre) {
         if (strcmp(curr->titre, titre) == 0) {
             if (prev) prev->suiv = nxt;
             else b->L = nxt;
+            afficher_livre(curr);
             liberer_livre(curr);
         } else prev = curr; // No element removed, previous has changed
         curr = nxt;
@@ -117,6 +125,7 @@ void suppression_titre(Biblio* b, char* titre) {
 }
 
 void suppression_auteur(Biblio* b, char* auteur) {
+    if(!b)return;
     Livre* curr = b->L;
     Livre* prev = NULL;
     Livre* nxt = NULL;
@@ -125,6 +134,7 @@ void suppression_auteur(Biblio* b, char* auteur) {
         if (strcmp(curr->auteur, auteur) == 0) {
             if (prev) prev->suiv = nxt;
             else b->L = nxt;
+            afficher_livre(curr);
             liberer_livre(curr);
         } else prev = curr; // No element removed, previous has changed
         curr = nxt;
@@ -132,6 +142,7 @@ void suppression_auteur(Biblio* b, char* auteur) {
 }
 
 void suppression_livre(Biblio* b, int num, char* titre, char* auteur) {
+    if(!b)return;
     Livre* curr = b->L;
     Livre* prev = NULL;
     Livre* nxt = NULL;
@@ -140,6 +151,7 @@ void suppression_livre(Biblio* b, int num, char* titre, char* auteur) {
             (strcmp(curr->titre, titre) == 0)) {
             if (prev) prev->suiv = nxt;
             else b->L = nxt;
+            afficher_livre(curr);
             liberer_livre(curr);
         } else prev = curr; // No element removed, previous has changed
         curr = nxt;
@@ -147,6 +159,7 @@ void suppression_livre(Biblio* b, int num, char* titre, char* auteur) {
 }
 
 void fusion_biblio(Biblio* b1, Biblio* b2) {
+    if(!b1 || !b2)return;
     if (!b2) return;
     Livre* curr = b1->L;
     if (!curr) {
@@ -163,6 +176,7 @@ void fusion_biblio(Biblio* b1, Biblio* b2) {
 
 Biblio* recherche_doublons(Biblio* b) { /* Doublons dans la liste finale. Peut
                                            êtrte optimisé avec un break */
+    if(!b)return NULL;
     Livre* curr = b->L;
     Livre* curr2;
     Biblio* res = creer_biblio();
@@ -172,7 +186,7 @@ Biblio* recherche_doublons(Biblio* b) { /* Doublons dans la liste finale. Peut
         curr2 = b->L;
         while (curr2 && bool) {
             if ((strcmp(curr->titre, curr2->titre) == 0) &&
-                (strcmp(curr->auteur, curr2->auteur) == 0)) {
+                (strcmp(curr->auteur, curr2->auteur) == 0)&&(curr!=curr2)) {
                 inserer_en_tete(res, curr->num, curr->titre, curr->auteur);
                 bool = 0;
             }

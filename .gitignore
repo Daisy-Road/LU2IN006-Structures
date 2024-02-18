@@ -1,5 +1,6 @@
 # Removing binaries
 *.out
+*.exe
 
 # Removing object file
 *.o

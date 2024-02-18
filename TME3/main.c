@@ -8,12 +8,13 @@
 #define MAX_BUFFER_SIZE 256
 
 void menu() {
-    printf("\n0-%s\n1-%s\n2-%s\n3-%s\n4-%s\n5-%s\n6-%s\n7-%s\n8-%s\n",
+    printf("\n0-%s\n1-%s\n2-%s\n3-%s\n4-%s\n5-%s\n6-%s\n7-%s\n8-%s\n9-%s\n",
            "Sortir du programme", "Ajouter ouvrage", "Supprimer ouvrage",
            "Afficher bibliothèque", "Rechercher ouvrage par numéro",
            "Rechercher ouvrage pas titre", "Rechercher les livres d'un auteur",
            "Fusionner cette bibliothèque avec une autre",
-           "Rechercher tout les ouvrages avec plusieurs exemplaires\n");
+           "Rechercher tout les ouvrages avec plusieurs exemplaires",
+           "Sauvegarder la bibliothèque\n");
 }
 
 void menu_suppression() {
@@ -50,12 +51,8 @@ int main(int argc, char** argv) {
             printf("Veuillez écrire le nom de l'auteur de l'ouvrage.\n");
             fgets(nom, 256, stdin);
             nom[strcspn(nom, "\n")] = 0;
-            if (atoi(num) != 0) {
-                inserer_en_tete(b, atoi(num), titre, nom);
-                printf("Livre ajouté\n");
-            } else {
-                printf("Erreur format\n");
-            }
+            inserer_en_tete(b, atoi(num), titre, nom);
+            printf("Livre ajouté\n");
             break;
 
         case 2:
@@ -110,22 +107,22 @@ int main(int argc, char** argv) {
         case 4:
             printf("Veuillez écrire le numero de l'ouvrage.\n");
             fgets(num, 256, stdin);
-            if (atoi(num) != 0) {
-                afficher_livre(recherche_num(b, atoi(num)));
-            } else {
-                printf("Erreur format\n");
-            }
+            afficher_livre(recherche_num(b, atoi(num)));
+            
             break;
 
         case 5:
             printf("Veuillez écrire le titre de l'ouvrage.\n");
             fgets(titre, 256, stdin);
+            titre[strcspn(titre, "\n")] = 0;
             afficher_livre(recherche_titre(b, titre));
             break;
 
         case 6:
             printf("Veuillez écrire le nom de l'auteur de l'ouvrage.\n");
             fgets(auteur, 256, stdin);
+            auteur[strcspn(auteur, "\n")] = 0;
+            printf("Affichage des livres de %s.\n", auteur);
             Biblio* sameAuthor = recherche_auteur(b, auteur);
             afficher_biblio(sameAuthor);
             free(sameAuthor);
@@ -148,6 +145,10 @@ int main(int argc, char** argv) {
             afficher_biblio(doublons);
             free(doublons);
             break;
+        case 9:
+            printf("Sauvegarde de la bibliothèque\n");
+            enregistrer_biblio(b,argv[1]);
+            printf("Bibliothèque sauvegardée\n");
 
         case 0:
             break;
