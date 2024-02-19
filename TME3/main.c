@@ -27,6 +27,13 @@ void menu_suppression() {
 
 int main(int argc, char** argv) {
 
+    if (argc != 3) {
+        printf(
+            "Paramètres invalides: %s <fichier> <nombre d'entrees a charger>\n",
+            argv[0]);
+        return 1;
+    }
+
     Biblio* b = charger_n_entrees(argv[1], atoi(argv[2]));
 
     char entree[3]; // An entry shouldn't exceed 1 digit.
@@ -108,7 +115,7 @@ int main(int argc, char** argv) {
             printf("Veuillez écrire le numero de l'ouvrage.\n");
             fgets(num, 256, stdin);
             afficher_livre(recherche_num(b, atoi(num)));
-            
+
             break;
 
         case 5:
@@ -125,7 +132,7 @@ int main(int argc, char** argv) {
             printf("Affichage des livres de %s.\n", auteur);
             Biblio* sameAuthor = recherche_auteur(b, auteur);
             afficher_biblio(sameAuthor);
-            free(sameAuthor);
+            liberer_biblio(sameAuthor);
             break;
 
         case 7:
@@ -147,7 +154,7 @@ int main(int argc, char** argv) {
             break;
         case 9:
             printf("Sauvegarde de la bibliothèque\n");
-            enregistrer_biblio(b,argv[1]);
+            enregistrer_biblio(b, argv[1]);
             printf("Bibliothèque sauvegardée\n");
 
         case 0:

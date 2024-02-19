@@ -1,6 +1,7 @@
 #include "biblioH.h"
 
 #include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -12,7 +13,7 @@ int fonctionClef(char* auteur) {
     return res;
 }
 
-LivreH* creer_livre(int num, char* titre, char* auteur) {
+LivreH* creer_livreH(int num, char* titre, char* auteur) {
     LivreH* res = (LivreH*)malloc(sizeof(LivreH));
     res->clef = fonctionClef(auteur);
     res->auteur = strdup(auteur);
@@ -21,13 +22,17 @@ LivreH* creer_livre(int num, char* titre, char* auteur) {
     return res;
 }
 
-void liberer_livre(LivreH* l) {
+void liberer_livreH(LivreH* l) {
     free(l->auteur);
     free(l->titre);
     free(l);
 }
 
-BiblioH* creer_biblio(int m) {
+BiblioH* creer_biblioH(int m) {
+    if (m <= 0) {
+        printf("Invalid hash table size.\n");
+        return NULL;
+    }
     BiblioH* res = (BiblioH*)malloc(sizeof(BiblioH));
     res->nE = 0;
     res->m = m;
@@ -38,7 +43,7 @@ BiblioH* creer_biblio(int m) {
     return res;
 }
 
-void liberer_biblio(BiblioH* b) {
+void liberer_biblioH(BiblioH* b) {
     if (!b) return;
     LivreH* curr;
     LivreH* tmp;
@@ -46,7 +51,7 @@ void liberer_biblio(BiblioH* b) {
         curr = b->T[i];
         while (curr) {
             tmp = curr->suiv;
-            liberer_livre(curr);
+            liberer_livreH(curr);
             curr = tmp;
         }
     }
@@ -59,8 +64,8 @@ int fonctionHachage(int cle, int m) {
     return (int)(m * (cle * A - (int)(cle * A)));
 }
 
-void inserer(BiblioH* b, int num, char* titre, char* auteur) {
-    LivreH* new = creer_livre(num, titre, auteur);
+void insererH(BiblioH* b, int num, char* titre, char* auteur) {
+    LivreH* new = creer_livreH(num, titre, auteur);
     int hash = fonctionHachage(new->clef, b->m);
     new->suiv = b->T[hash];
     b->T[hash] = new;

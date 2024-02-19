@@ -11,14 +11,17 @@ Biblio* charger_n_entrees(char* nom_fic, int n) {
     Biblio* res = creer_biblio();
     FILE* f = fopen(nom_fic, "r");
 
-    if (f == NULL) { printf("File %s is not readable\n", nom_fic); }
+    if (f == NULL) {
+        printf("File %s is not readable\n", nom_fic);
+        return NULL;
+    }
 
     char titre[MAX_BUFF_SIZE];
     char auteur[MAX_BUFF_SIZE];
     int num;
 
     for (int i = 0; i < n; i++) {
-        fscanf(f, "%d %s %s\n", &num, titre, auteur);
+        if (fscanf(f, "%d %s %s\n", &num, titre, auteur) == EOF) break;
         inserer_en_tete(res, num, titre, auteur);
     }
     fclose(f);
@@ -47,7 +50,7 @@ void afficher_livre(Livre* l) {
 }
 
 void afficher_biblio(Biblio* b) {
-    if(!b)return;
+    if (!b) return;
     printf("-----[ Bibliothèque ]-----\n");
     Livre* curr = b->L;
     while (curr) {
@@ -58,7 +61,7 @@ void afficher_biblio(Biblio* b) {
 }
 
 Livre* recherche_num(Biblio* b, int num) {
-    if(!b)return NULL;
+    if (!b) return NULL;
     Livre* curr = b->L;
     while (curr) {
         if (curr->num == num) return curr;
@@ -68,7 +71,7 @@ Livre* recherche_num(Biblio* b, int num) {
 }
 
 Livre* recherche_titre(Biblio* b, char* titre) {
-    if(!b)return NULL;
+    if (!b) return NULL;
     Livre* curr = b->L;
     while (curr) {
         if (strcmp(curr->titre, titre) == 0) return curr;
@@ -78,7 +81,7 @@ Livre* recherche_titre(Biblio* b, char* titre) {
 }
 
 Biblio* recherche_auteur(Biblio* b, char* auteur) {
-    if(!b)return NULL;
+    if (!b) return NULL;
     Biblio* res = creer_biblio();
     Livre* curr = b->L;
 
@@ -91,7 +94,7 @@ Biblio* recherche_auteur(Biblio* b, char* auteur) {
 }
 
 void suppression_num(Biblio* b, int num) {
-    if(!b)return;
+    if (!b) return;
     Livre* curr = b->L;
     Livre* nxt = NULL;
     Livre* prev = NULL;
@@ -108,7 +111,7 @@ void suppression_num(Biblio* b, int num) {
 }
 
 void suppression_titre(Biblio* b, char* titre) {
-    if(!b)return;
+    if (!b) return;
     Livre* curr = b->L;
     Livre* prev = NULL;
     Livre* nxt = NULL;
@@ -125,7 +128,7 @@ void suppression_titre(Biblio* b, char* titre) {
 }
 
 void suppression_auteur(Biblio* b, char* auteur) {
-    if(!b)return;
+    if (!b) return;
     Livre* curr = b->L;
     Livre* prev = NULL;
     Livre* nxt = NULL;
@@ -142,7 +145,7 @@ void suppression_auteur(Biblio* b, char* auteur) {
 }
 
 void suppression_livre(Biblio* b, int num, char* titre, char* auteur) {
-    if(!b)return;
+    if (!b) return;
     Livre* curr = b->L;
     Livre* prev = NULL;
     Livre* nxt = NULL;
@@ -159,7 +162,7 @@ void suppression_livre(Biblio* b, int num, char* titre, char* auteur) {
 }
 
 void fusion_biblio(Biblio* b1, Biblio* b2) {
-    if(!b1 || !b2)return;
+    if (!b1 || !b2) return;
     if (!b2) return;
     Livre* curr = b1->L;
     if (!curr) {
@@ -176,7 +179,7 @@ void fusion_biblio(Biblio* b1, Biblio* b2) {
 
 Biblio* recherche_doublons(Biblio* b) { /* Doublons dans la liste finale. Peut
                                            êtrte optimisé avec un break */
-    if(!b)return NULL;
+    if (!b) return NULL;
     Livre* curr = b->L;
     Livre* curr2;
     Biblio* res = creer_biblio();
@@ -186,7 +189,7 @@ Biblio* recherche_doublons(Biblio* b) { /* Doublons dans la liste finale. Peut
         curr2 = b->L;
         while (curr2 && bool) {
             if ((strcmp(curr->titre, curr2->titre) == 0) &&
-                (strcmp(curr->auteur, curr2->auteur) == 0)&&(curr!=curr2)) {
+                (strcmp(curr->auteur, curr2->auteur) == 0) && (curr != curr2)) {
                 inserer_en_tete(res, curr->num, curr->titre, curr->auteur);
                 bool = 0;
             }

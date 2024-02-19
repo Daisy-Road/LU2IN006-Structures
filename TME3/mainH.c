@@ -27,7 +27,15 @@ void menu_suppression() {
 
 int main(int argc, char** argv) {
 
-    BiblioH* b = charger_n_entrees(argv[1], atoi(argv[2]));
+    if (argc != 3) {
+        printf("Paramètres invalides: %s <fichier> <nombre d'entrees a "
+               "charger> [hash table size]\n",
+               argv[0]);
+        return 1;
+    }
+
+    int sizeHash = (argc == 4) ? atoi(argv[3]) : atoi(argv[2]) / 2;
+    BiblioH* b = charger_n_entreesH(argv[1], atoi(argv[2]), sizeHash);
 
     char entree[3]; // An entry shouldn't exceed 1 digit.
                     // (index 1 is for \n, index 2 is for \0)
@@ -43,7 +51,6 @@ int main(int argc, char** argv) {
 
         case 1:
             printf("Veuillez indiquer le numéro de l'ouvrage\n");
-            fflush(stdin);
             fgets(num, MAX_BUFFER_SIZE, stdin);
             printf("Veuillez écrire le titre de l'ouvrage.\n");
             fgets(titre, 256, stdin);
@@ -51,7 +58,7 @@ int main(int argc, char** argv) {
             printf("Veuillez écrire le nom de l'auteur de l'ouvrage.\n");
             fgets(nom, 256, stdin);
             nom[strcspn(nom, "\n")] = 0;
-            inserer(b, atoi(num), titre, nom);
+            insererH(b, atoi(num), titre, nom);
             printf("Livre ajouté\n");
             break;
 
@@ -62,7 +69,7 @@ int main(int argc, char** argv) {
             case 1:
                 printf("Veuillez écrire le numéro des ouvrages.\n");
                 fgets(num, 256, stdin);
-                suppression_num(b, atoi(num));
+                suppression_numH(b, atoi(num));
                 entree[0] = '0';
                 printf("Livres supprimées\n");
                 break;
@@ -70,7 +77,7 @@ int main(int argc, char** argv) {
                 printf("Veuillez écrire le titre des ouvrages.\n");
                 fgets(titre, 256, stdin);
                 titre[strcspn(titre, "\n")] = 0;
-                suppression_titre(b, titre);
+                suppression_titreH(b, titre);
                 entree[0] = '0';
                 printf("Livres supprimées\n");
                 break;
@@ -78,7 +85,7 @@ int main(int argc, char** argv) {
                 printf("Veuillez écrire l'auteur des ouvrages.\n");
                 fgets(auteur, 256, stdin);
                 auteur[strcspn(auteur, "\n")] = 0;
-                suppression_auteur(b, auteur);
+                suppression_auteurH(b, auteur);
                 entree[0] = '0';
                 printf("Livres supprimées\n");
                 break;
@@ -91,7 +98,7 @@ int main(int argc, char** argv) {
                 printf("Veuillez écrire le nom de l'auteur de l'ouvrage.\n");
                 fgets(nom, 256, stdin);
                 nom[strcspn(nom, "\n")] = 0;
-                suppression_ouvrage(b, atoi(num), titre, nom);
+                suppression_ouvrageH(b, atoi(num), titre, nom);
                 printf("Ouvrage");
                 break;
             default:
@@ -101,20 +108,20 @@ int main(int argc, char** argv) {
             break;
 
         case 3:
-            afficher_biblio(b);
+            afficher_biblioH(b);
             break;
 
         case 4:
             printf("Veuillez écrire le numero de l'ouvrage.\n");
             fgets(num, 256, stdin);
-            afficher_livre(recherche_num(b, atoi(num)));
+            afficher_livreH(recherche_numH(b, atoi(num)));
             break;
 
         case 5:
             printf("Veuillez écrire le titre de l'ouvrage.\n");
             fgets(titre, 256, stdin);
             titre[strcspn(titre, "\n")] = 0;
-            afficher_livre(recherche_titre(b, titre));
+            afficher_livreH(recherche_titreH(b, titre));
             break;
 
         case 6:
@@ -122,9 +129,9 @@ int main(int argc, char** argv) {
             fgets(auteur, 256, stdin);
             auteur[strcspn(auteur, "\n")] = 0;
             printf("Affichage des livres de %s.\n", auteur);
-            BiblioH* sameAuthor = recherche_auteur(b, auteur);
-            afficher_biblio(sameAuthor);
-            free(sameAuthor);
+            BiblioH* sameAuthor = recherche_auteurH(b, auteur);
+            afficher_biblioH(sameAuthor);
+            liberer_biblioH(sameAuthor);
             break;
 
         case 7:
@@ -133,21 +140,29 @@ int main(int argc, char** argv) {
             nom[strcspn(nom, "\n")] = 0;
             printf("Veuillez écrire le nombre de livres du fichier.\n");
             fgets(nb, 256, stdin);
-            BiblioH* b2 = charger_n_entrees(nom, atoi(nb));
-            fusion(b, b2);
+            printf(
+                "Veuillez indiquer la taille de la table de hachage à générer\n"
+                "Taille actuelle: %d\n"
+                "Prendre une valeur différente que la taille actuel "
+                "recalculera le hachage de la nouvelle bibliothèque générée\n",
+                sizeHash);
+            BiblioH* b2 = charger_n_entreesH(nom, atoi(nb), sizeHash);
+            fusionH(b, b2);
             printf("Fusion effectuée.\n");
             break;
 
         case 8:
             printf("Suppression des doublons...\n");
-            supprimer_doublons(b);
+            supprimer_doublonsH(b);
             break;
 
         case 9:
-            printf("Sauvegarde de la bibliothèque\n");
-            enregistrer_biblio(b,argv[1]);
-            printf("Bibliothèque sauvegardée\n");
-        
+            printf("Sous quel nom sauvegarder la bibliothèque courante ?\n");
+            fgets(nom, 256, stdin);
+            nom[strcspn(nom, "\n")] = 0;
+            enregistrer_biblioH(b, nom);
+            printf("Bibliothèque sauvegardée sous %s\n", nom);
+
         case 0:
             break;
 
@@ -158,6 +173,6 @@ int main(int argc, char** argv) {
     } while (atoi(entree) != 0);
 
     printf("Merci et bonne journée!\n");
-    liberer_biblio(b);
+    liberer_biblioH(b);
     return 0;
 }
