@@ -7,3 +7,8 @@
 
 # Ignoring winodws stackdump
 *.stackdump
+
+# Ignoring pdf, log, aux
+*.pdf
+*.aux
+*.log
