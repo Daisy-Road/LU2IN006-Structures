@@ -4,3 +4,6 @@
 
 # Removing object file
 *.o
+
+# Ignoring winodws stackdump
+*.stackdump
