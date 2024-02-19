@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
     printf("Nos recherches seront faites sur GdeBiblio.txt\n");
     for (int i = 1000; i <= 50000; i += 1000) {
         b = charger_n_entrees("GdeBiblio.txt", i);
-        bH = charger_n_entreesH("GdeBiblio.txt", i, 20);
+        bH = charger_n_entreesH("GdeBiblio.txt", i, i / 2);
 
         start = clock();
         dubH = recherche_doublonsH(bH);
@@ -42,4 +42,3 @@ int main(int argc, char** argv) {
     fclose(f);
     fclose(fH);
 }
-
