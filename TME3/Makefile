@@ -33,6 +33,9 @@ comparaison.o: comparaison.c
 comparaison.out: biblioH.o entreeSortieH.o biblioLC.o entreeSortieLC.o comparaison.o
 	$(CC) biblioH.o entreeSortieH.o biblioLC.o entreeSortieLC.o comparaison.o -o comparaison.out -Wall
 
+courbes.o: courbes.c
+	$(CC) -c courbes.c
+
 courbes.out: biblioH.o entreeSortieH.o biblioLC.o entreeSortieLC.o courbes.o
 	$(CC) biblioH.o entreeSortieH.o biblioLC.o entreeSortieLC.o courbes.o -o courbes.out -Wall
 	
