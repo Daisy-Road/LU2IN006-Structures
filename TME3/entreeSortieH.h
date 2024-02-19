@@ -16,5 +16,6 @@ void suppression_auteurH(BiblioH* b, char* auteur);
 void suppression_ouvrageH(BiblioH* b, int num, char* titre, char* auteur);
 void fusionH(BiblioH* b1, BiblioH* b2);
 void supprimer_doublonsH(BiblioH* b);
+BiblioH* recherche_doublonsH(BiblioH* b);
 
 #endif

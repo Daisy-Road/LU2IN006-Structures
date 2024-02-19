@@ -1,5 +1,5 @@
 CC=gcc
-PROGRAMS=main.out mainH.out comparaison.out
+PROGRAMS=main.out mainH.out comparaison.out courbes.out
 
 all: $(PROGRAMS)
 
@@ -33,5 +33,8 @@ comparaison.o: comparaison.c
 comparaison.out: biblioH.o entreeSortieH.o biblioLC.o entreeSortieLC.o comparaison.o
 	$(CC) biblioH.o entreeSortieH.o biblioLC.o entreeSortieLC.o comparaison.o -o comparaison.out -Wall
 
+courbes.out: biblioH.o entreeSortieH.o biblioLC.o entreeSortieLC.o courbes.o
+	$(CC) biblioH.o entreeSortieH.o biblioLC.o entreeSortieLC.o courbes.o -o courbes.out -Wall
+	
 clean:
 	rm -f $(PROGRAMS) *.o

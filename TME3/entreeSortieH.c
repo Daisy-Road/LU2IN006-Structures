@@ -252,6 +252,7 @@ void supprimer_doublonsH(BiblioH* b) {
                     strcmp(curr->auteur, to_test->auteur) == 0) {
                     prev->suiv = to_test->suiv;
                     tmp = to_test->suiv;
+                    afficher_livreH(to_test);
                     liberer_livreH(to_test);
                     to_test = tmp;
                 } else {
@@ -262,3 +263,25 @@ void supprimer_doublonsH(BiblioH* b) {
         }
     }
 }
+BiblioH* recherche_doublonsH(BiblioH* b) {
+    if (!b) return NULL;
+    LivreH* curr;
+    LivreH* to_test;
+    BiblioH* res = creer_biblioH(1);
+    for (int i = 0; i < b->m; i++) {
+        curr = b->T[i];
+        while (curr) {
+            to_test = b->T[i];
+            while (to_test) {
+                if (strcmp(curr->titre, to_test->titre) == 0 && strcmp(curr->auteur, to_test->auteur) == 0 && curr!=to_test) {
+                    insererH(res,curr->num,curr->titre,curr->auteur);
+                    break;
+                }
+                to_test = to_test->suiv;
+            }
+            curr = curr->suiv;
+        }
+    }
+    return res;
+}
+

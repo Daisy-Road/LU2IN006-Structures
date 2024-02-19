@@ -183,15 +183,13 @@ Biblio* recherche_doublons(Biblio* b) { /* Doublons dans la liste finale. Peut
     Livre* curr = b->L;
     Livre* curr2;
     Biblio* res = creer_biblio();
-    int bool;
     while (curr) {
-        bool = 1;
         curr2 = b->L;
-        while (curr2 && bool) {
+        while (curr2 ) {
             if ((strcmp(curr->titre, curr2->titre) == 0) &&
                 (strcmp(curr->auteur, curr2->auteur) == 0) && (curr != curr2)) {
                 inserer_en_tete(res, curr->num, curr->titre, curr->auteur);
-                bool = 0;
+                break;
             }
             curr2 = curr2->suiv;
         }
