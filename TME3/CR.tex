@@ -14,7 +14,7 @@
     \pagenumbering{arabic}
 
     \section{Introduction}
-    Dans ce TME, l'objectif était de comparé la différence de temps de calcul
+    Dans ce TME, l'objectif était de comparer la différence de temps de calcul
     entre une liste chaînée et une table de hachage, en particulier dans les fonctions
     de recherches. La mise en situation ici, consiste à gérer les livres d'une
     bibliothèque dans ces 2 structures
@@ -25,11 +25,11 @@
     données à partir des éléments suivants.
     \newline
     Une table de hachage est un tableau de taille fixé. Chaque indice du tableau
-    et le résultat d'une fonction de hachage dans laquelle on a renseignée une
+    et le résultat d'une fonction de hachage dans laquelle on a renseigné une
     clé spécifique. Parfois, une fonction de hachage peut renvoyer pour deux clés
     différentes, la même valeur. C'est ce que l'on appelle une collision. 
     \newline
-    Dans ce TME, les collissions sont gérées par des listes chaînées. C'est à dire que
+    Dans ce TME, les collisions sont gérées par des listes chaînées. C'est à dire que
     chaque case de notre table de hachage pointe vers une liste chaînée, et que,
     lors d'une collision, l'élément en question est ajouté à la liste chaînée.
     \newline \newline
@@ -44,34 +44,34 @@
         \item \texttt{entreeSortieLC.c} et \texttt{entreeSortieH.c} qui contiennent
         respectivement les fonctions d'entrées sorties essentielles pour les listes chaînées
         et la table de hachage. En particulier les fonctions de recherches qui nous
-        permettrons de tirer des conclusions quant à la practicité de ces deux structures
+        permettront de tirer des conclusions quant à l'efficacité de ces deux structures
         \item \texttt{main.c} et \texttt{mainH.c} qui permettent de tester respectivement
         les fonctions des listes chaînées et des tables de hachage. Une interface a été
         programmée pour rendre la chose plus facile.
         \item \texttt{comparaison.c} qui permet de comparer les temps de recherches entre
-        une liste chaînée et une table de hachage et dont les résultat ont été explicité
+        une liste chaînée et une table de hachage et dont les résultats ont été explicités
         en Q.3.1
         \item \texttt{courbes.c} qui permet de générer un fichier de données 
         que l'on peut utiliser avec \texttt{gnuplot} et observer les différences
-        de temps de calcul pour la recherche de doublon entre une liste chaînée et
+        de temps de calcul pour la recherche de doublons entre une liste chaînée et
         une table de hachage
         \item \texttt{biblioLC.h}, \texttt{entreeSortieLC.h}, \texttt{biblioH.h} et \texttt{entreeSortieH.h}
-        permettant d'utiliser les fonctions des fichiers C associé dans d'autre fichiers
+        permettant d'utiliser les fonctions des fichiers C associées dans d'autre fichiers
     \end{itemize}
     
 
     \newpage
     \section{Question 3.1 et 3.2}
 
-    Pour effectuer la comparaison de temps de calcul entre la table de hachage, nous avons créer
+    Pour effectuer la comparaison de temps de calcul entre la table de hachage, nous avons créé
     le fichier \texttt{comparaison.c} qui effectue 100 recherches consécutives 
     dans la liste chaînée, puis dans la table hachage de taille donnée. 
     \newline
-    Les deux structures ont chargés l'intégralité de la bibliothèque de 10000 livres,
-    l'élément recherché était le même à test et avait une position éloigné 
+    Les deux structures ont chargé l'intégralité de la bibliothèque de 10000 livres,
+    l'élément recherché était le même à test et avait une position éloignée
     d'environ 7700 blocs de la tête de liste.
     \newline
-    Les résultats observées sont les suivants:
+    Les résultats observés sont les suivants:
 
     \begin{table}[h]
         \centering
@@ -143,7 +143,7 @@
     celle de la liste chaînée.
     \newline
     Ce résultat est effectivemment logique: Pas de doute possible, la fonction
-    de recherche de doublon dans la liste chaînée a une complexité de
+    de recherche de doublons dans la liste chaînée a une complexité de
     $\Theta(n^2)$. 
     \newline
     Dans la table de hachage, cette complexité sera différente, bien 
