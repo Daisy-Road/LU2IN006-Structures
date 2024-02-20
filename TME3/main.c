@@ -36,8 +36,8 @@ int main(int argc, char** argv) {
 
     Biblio* b = charger_n_entrees(argv[1], atoi(argv[2]));
 
-    char entree[3]; // An entry shouldn't exceed 1 digit.
-                    // (index 1 is for \n, index 2 is for \0)
+    char entree[3]; // Une entrée ne devrait pas dépasser un chiffre
+                    // (entree[1] est le \n, entree[2] est le \0)
     do {
         menu();
         fgets(entree, 3, stdin);
@@ -104,7 +104,7 @@ int main(int argc, char** argv) {
             default:
                 break;
             }
-            entree[0] = '2'; // Reseting entry
+            entree[0] = '2'; // Remise à zéro de l'entrée
             break;
 
         case 3:
@@ -150,7 +150,7 @@ int main(int argc, char** argv) {
             printf("Affichage des ouvrages en double\n");
             Biblio* doublons = recherche_doublons(b);
             afficher_biblio(doublons);
-            free(doublons);
+            liberer_biblio(doublons);
             break;
         case 9:
             printf("Sauvegarde de la bibliothèque\n");

@@ -38,6 +38,9 @@ courbes.o: courbes.c
 
 courbes.out: biblioH.o entreeSortieH.o biblioLC.o entreeSortieLC.o courbes.o
 	$(CC) biblioH.o entreeSortieH.o biblioLC.o entreeSortieLC.o courbes.o -o courbes.out -Wall
+
+CR.pdf: CR.tex
+	pdflatex CR.tex
 	
 clean:
-	rm -f $(PROGRAMS) *.o
+	rm -f $(PROGRAMS) *.o CR.log CR.aux CR.pdf Valeurs.txt ValeursH.txt

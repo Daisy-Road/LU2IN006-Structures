@@ -13,7 +13,7 @@ void menu() {
            "Afficher bibliothèque", "Rechercher ouvrage par numéro",
            "Rechercher ouvrage pas titre", "Rechercher les livres d'un auteur",
            "Fusionner cette bibliothèque avec une autre",
-           "Supprimer tous les ouvrages avec plusieurs exemplaires",
+           "Rechercher tous les ouvrages avec plusieurs exemplaires",
            "Sauvegarder la bibliothèque\n");
 }
 
@@ -34,11 +34,14 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+    // On vérifie si la taille de la table de hachage a été donné en paramètre
+    // Sinon on prends la valeur par défaut (le nombre de livre chargé / 2)
     int sizeHash = (argc == 4) ? atoi(argv[3]) : atoi(argv[2]) / 2;
+
     BiblioH* b = charger_n_entreesH(argv[1], atoi(argv[2]), sizeHash);
 
-    char entree[3]; // An entry shouldn't exceed 1 digit.
-                    // (index 1 is for \n, index 2 is for \0)
+    char entree[3]; // Une entrée ne devrait pas dépasser un chiffre
+                    // (entree[1] est le \n, entree[2] est le \0)
     do {
         menu();
         fgets(entree, 3, stdin);
@@ -104,7 +107,7 @@ int main(int argc, char** argv) {
             default:
                 break;
             }
-            entree[0] = '2'; // Reseting entry
+            entree[0] = '2'; // Remise à zéro de l'entrée
             break;
 
         case 3:
@@ -146,14 +149,18 @@ int main(int argc, char** argv) {
                 "Prendre une valeur différente que la taille actuel "
                 "recalculera le hachage de la nouvelle bibliothèque générée\n",
                 sizeHash);
+            fgets(num, 256, stdin);
+            sizeHash = atoi(num);
             BiblioH* b2 = charger_n_entreesH(nom, atoi(nb), sizeHash);
             fusionH(b, b2);
             printf("Fusion effectuée.\n");
             break;
 
         case 8:
-            printf("Suppression des doublons...\n");
-            supprimer_doublonsH(b);
+            printf("Affichage des doublons...\n");
+            BiblioH* dub = recherche_doublonsH(b);
+            afficher_biblioH(dub);
+            liberer_biblioH(dub);
             break;
 
         case 9:
