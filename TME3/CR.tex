@@ -17,12 +17,12 @@
     Dans ce TME, l'objectif était de comparer la différence de temps de calcul
     entre une liste chaînée et une table de hachage, en particulier dans les fonctions
     de recherches. La mise en situation ici, consiste à gérer les livres d'une
-    bibliothèque dans ces 2 structures
+    bibliothèque dans ces 2 structures.
     \newline \newline
-    Une liste chaînée est une structure de donnée récursive, qui consiste à
-    faire pointer un bloc vers son élément suivant. Une liste chaînée est 
-    constituée d'une tête, qui permet de reconstruire l'intégralité de ses
-    données à partir des éléments suivants.
+    Une liste chaînée est une structure de données récursive, qui consiste à
+    faire pointer une cellule vers son élément suivant. Une liste chaînée est 
+    constituée d'une cellule tête, qui permet de reconstruire l'intégralité de ses
+    données à partir de ses éléments suivants.
     \newline
     Une table de hachage est un tableau de taille fixée $m$. Chaque indice
     correspond au résultat d'une fonction de hachage paramétrée par une
@@ -70,9 +70,9 @@
     le fichier \texttt{comparaison.c} qui effectue 100 recherches consécutives 
     dans la liste chaînée, puis dans la table hachage de taille donnée. 
     \newline
-    Les deux structures ont chargé l'intégralité de la bibliothèque de 10000 livres,
+    Les deux structures ont chargé l'intégralité de la bibliothèque de 100000 livres,
     l'élément recherché "connu" était le même à chaque test et avait une position éloignée
-    d'environ 7700 blocs de la tête de liste chaînée.
+    d'environ 77000 blocs de la tête de liste chaînée.
     \newline
     Les résultats observés sont les suivants:
 
@@ -103,7 +103,7 @@
     car une table avec une taille plus importante minimise les collisions.
     \newline
     Remarquons néanmoins que peu importe la taille de la table de hachage, le temps de recherche
-    est significativement moins important que dans une liste chaînée quand il s'agit de chercher l'auteur
+    est significativement moins important que dans une liste chaînée quand il s'agit de chercher l'auteur.
     \newline
     En revanche observons que le temps de recherche est plus important dans une table de hachage que
     dans une liste chaînée lorsque l'on recherche par numéro ou par titre. Ceci est dû au fait que la
@@ -114,7 +114,7 @@
     du tableau à l'autre, et le temps de parcours d'une liste chaînée.
     \newline
     On observe donc de façon logique que plus la table de hachage est petite, plus la recherche à partir
-    d'un numéro ou d'un titre est moindre
+    d'un numéro ou d'un titre est moindre (moins de case à évaluer).
     
     \newpage
     \section{Question 3.3 et 3.4}
@@ -148,20 +148,21 @@
     celle de la liste chaînée (en violet). 
     \newline
     Notons $n$ le nombre de livres: La fonction
-    de recherche de doublons dans la liste chaînée va itérer autant dans le pire et meilleure des cas
-    Pour le premier élément, on évalue $n$ éléments, puis $n-1$ etc.
+    de recherche de doublons dans la liste chaînée va itérer autant dans le pire et meilleure des cas:
+    Pour le premier élément, on le compare à $n-1$ éléments, puis le second à $n-2$ etc.
     D'où:
-    $$ \Theta\left(\sum^n_{i=1} i\right)  = \Theta\left(\frac{n(n+1)}{2}\right) = \Theta(n^2)$$  
+    $$ \Theta\left(\sum^{n-1}_{i=0} i\right)  = \Theta\left(\frac{(n-1)n}{2}\right) = \Theta(n^2)$$  
     \newline
-    Dans la table de hachage, on a dans le pire cas, $\mathcal O(n^2)$. (Tous les éléments ont la même valeur au hachage, donc on itère sur une liste chaînée classique).
+    Dans la table de hachage, on a dans le pire cas, $\mathcal O(n^2)$
+    (Tous les éléments ont la même valeur au hachage, donc on itère sur une liste chaînée classique).
     \newline
     Dans le cas général,
     En notant $m$, la taille de notre table de hachage, et $p$ le nombre d'éléments dans une 
     case de la table de hachage,
     la complexité cas général est de $\Theta(mp^2)$ où $p << n$ (car on limite les collisions un maximum).
     \newline
-    On cherche donc des doublons dans des listes chaînées nettement moins grande,
-    ceci explique donc les différences de croissance observées
+    On cherche donc des doublons dans des listes chaînées nettement moins grande.
+    Ceci explique donc les différences de croissance observées.
 
         
 \end{document}
