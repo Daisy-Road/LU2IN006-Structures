@@ -88,18 +88,24 @@ int main(int argc, char** argv) {
     printf("Hashtable: %f\n", cpu_time_use);
 
     // ------ Recherche par auteur -------
+    Biblio* sameAuthor;
+    BiblioH* sameAuthorH;
     printf("\n----- [ Recherche auteur ] ------\n");
     // Existant
-    printf("1. L'auteur est existant\n");
+    printf("1. L'auteur est existe\n");
     start = clock();
-    for (int i = 0; i < NB_RECHERCHES; i++)
-        recherche_auteur(b, "jgkln");
+    for (int i = 0; i < NB_RECHERCHES; i++) {
+        sameAuthor = recherche_auteur(b, "sejwgt");
+        liberer_biblio(sameAuthor);
+    }
     end = clock();
     cpu_time_use = ((double)(end - start)) / CLOCKS_PER_SEC;
     printf("Liste chaînée: %f\n", cpu_time_use);
     start = clock();
-    for (int i = 0; i < NB_RECHERCHES; i++)
-        recherche_auteurH(bH, "jgklnJ");
+    for (int i = 0; i < NB_RECHERCHES; i++) {
+        sameAuthorH = recherche_auteurH(bH, "sejwgt");
+        liberer_biblioH(sameAuthorH);
+    }
     end = clock();
     cpu_time_use = ((double)(end - start)) / CLOCKS_PER_SEC;
     printf("Hashtable: %f\n", cpu_time_use);
@@ -107,14 +113,18 @@ int main(int argc, char** argv) {
     // Non-Existant
     printf("\n2. L'auteur n'existe pas\n");
     start = clock();
-    for (int i = 0; i < NB_RECHERCHES; i++)
-        recherche_auteur(b, "a");
+    for (int i = 0; i < NB_RECHERCHES; i++) {
+        sameAuthor = recherche_auteur(b, "a");
+        liberer_biblio(sameAuthor);
+    }
     end = clock();
     cpu_time_use = ((double)(end - start)) / CLOCKS_PER_SEC;
     printf("Liste chaînée: %f\n", cpu_time_use);
     start = clock();
-    for (int i = 0; i < NB_RECHERCHES; i++)
-        recherche_auteurH(bH, "a");
+    for (int i = 0; i < NB_RECHERCHES; i++) {
+        sameAuthorH = recherche_auteurH(bH, "a");
+        liberer_biblioH(sameAuthorH);
+    }
     end = clock();
     cpu_time_use = ((double)(end - start)) / CLOCKS_PER_SEC;
     printf("Hashtable: %f\n", cpu_time_use);
