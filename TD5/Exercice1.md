@@ -21,7 +21,7 @@ On insère les éléments sur la gauche en premier. On vérifie que l'élément 
 grande que celle de son père. Si ce n'est pas le cas, on fait un swap et on vérifie si le changement 
 reste valide jusqu'à la racine si nécéssaire.  
 
-![img](https://github.com/Supre-le-sucre/LU2IN006-Structures/blob/all/Quick sheets - page 708.jpg?raw=true)
+![img](https://github.com/Supre-le-sucre/LU2IN006-Structures/blob/all/708.jpg?raw=true)
 
 ## Question 3
 
@@ -30,11 +30,11 @@ est complet. On commence par remplacer la racine par le dernier élément (Eleme
 niveau le plus bas). Ensuite on effectue des swap à partir de la racine pour garantir que les clés 
 sont bien ordonnées.
 
-![img](./Quick sheets - page 709.png)
+![img](https://github.com/Supre-le-sucre/LU2IN006-Structures/blob/all/709.jpg?raw=true)
 
 ## Question 4
 
-- Pour $h=0$: $O \leq n \leq 1$
+- Pour $h=0$: $0 \leq n \leq 1$
 - Pour $h=1$: $0+2 \leq n \leq 1+2$
 - Pour $h=2$: $ 0+2+2 \leq n \leq 1+2+4 $
 - ...
@@ -42,5 +42,18 @@ sont bien ordonnées.
 
 ## Question 5
 
+D'une part: $$2^h \leq n \Leftrightarrow log_2(2^h) \leq log_2(n) \Leftrightarrow h \leq log_2(n)$$
+D'autre part: $$n \leq 2^{h+1}-1 \Leftrightarrow n+1 \leq 2^{h+1} \Leftrightarrow log_2(n+1) \leq h-1 \Leftrightarrow h \geq log_2(n+1)$$
 
+On a donc que:
+$$log_2(n+1) -1 \leq h \leq log_2(n)$$
+
+Or puisque $h$ est un entier, on peut écrire que: $\lceil log_2(n+1)-1 \rceil \leq h \leq \lfloor log_2(n) \rfloor$   
+Démontrons que $log_2(n) -log_2(n+1) + 1 < 1$  
+
+Reecrivons la propriété à démontrer...  
+$$log_2(n) - log_2(n+1) + 1 < 1 \Leftrightarrow log_2(n) - log_2(n+1) < 0 \Leftrightarrow log(\frac{n}{n+1}) < 0$$
+
+Comme $n < n+1$ la dernière inégalité est une trivialité.  
+On a donc forcément: $\lceil log_2(n+1)-1 \rceil \leq h \leq \lfloor log_2(n) \rfloor$
 
