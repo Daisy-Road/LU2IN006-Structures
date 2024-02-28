@@ -55,5 +55,5 @@ Reecrivons la propriété à démontrer...
 $$log_2(n) - log_2(n+1) + 1 < 1 \Leftrightarrow log_2(n) - log_2(n+1) < 0 \Leftrightarrow log(\frac{n}{n+1}) < 0$$
 
 Comme $n < n+1$ la dernière inégalité est une trivialité.  
-On a donc forcément: $\lceil log_2(n+1)-1 \rceil \leq h \leq \lfloor log_2(n) \rfloor$
+On a donc forcément: $\lceil log_2(n+1)-1 \rceil = \lfloor log_2(n) \rfloor = h$
 
