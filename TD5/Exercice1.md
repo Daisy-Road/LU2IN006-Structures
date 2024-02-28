@@ -57,3 +57,10 @@ $$log_2(n) - log_2(n+1) + 1 < 1 \Leftrightarrow log_2(n) - log_2(n+1) < 0 \Leftr
 Comme $n < n+1$ la dernière inégalité est une trivialité.  
 On a donc forcément: $\lceil log_2(n+1)-1 \rceil = \lfloor log_2(n) \rfloor = h$
 
+## Question 6
+
+En rajoutant, un élément ayant une clé plus petite que tous les éléments du tas, nous serions obligé 
+de faire $h$ swap d'éléménets avant que la nouveille feuille remplace la racine. Sachant que $h = log_2(n)$,
+ceci correspond au coût le plus élevé pour une insertion. L'insertion est donc $O(log_2(n))$.  
+Pour la suppression du minimum, on retrouve la même complexité, car dans le pire cas, on devra faire $h$
+swaps de la racine vers une feuille.
