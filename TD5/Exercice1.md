@@ -21,7 +21,7 @@ On insère les éléments sur la gauche en premier. On vérifie que l'élément 
 grande que celle de son père. Si ce n'est pas le cas, on fait un swap et on vérifie si le changement 
 reste valide jusqu'à la racine si nécéssaire.  
 
-![img](https://github.com/Supre-le-sucre/LU2IN006-Structures/blob/all/708.jpg?raw=true)
+![img](708.jpg)
 
 ## Question 3
 
@@ -30,7 +30,7 @@ est complet. On commence par remplacer la racine par le dernier élément (Eleme
 niveau le plus bas). Ensuite on effectue des swap à partir de la racine pour garantir que les clés 
 sont bien ordonnées.
 
-![img](https://github.com/Supre-le-sucre/LU2IN006-Structures/blob/all/709.jpg?raw=true)
+![img](709.jpg)
 
 ## Question 4
 
