@@ -36,7 +36,7 @@ sont bien ordonnées.
 
 - Pour $h=0$: $0 \leq n \leq 1$
 - Pour $h=1$: $0+2 \leq n \leq 1+2$
-- Pour $h=2$: $ 0+2+2 \leq n \leq 1+2+4 $
+- Pour $h=2$: $0+2+2 \leq n \leq 1+2+4$
 - ...
 - Pour $h$: $2^h \leq n \leq \sum_{i=0}^n2^i = 2^{n+1}-1$
 
