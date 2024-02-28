@@ -21,7 +21,7 @@ On insère les éléments sur la gauche en premier. On vérifie que l'élément 
 grande que celle de son père. Si ce n'est pas le cas, on fait un swap et on vérifie si le changement 
 reste valide jusqu'à la racine si nécéssaire.  
 
-![./Quick sheets - page 708.png]
+![img](./Quick sheets - page 708.png)
 
 ## Question 3
 
@@ -30,4 +30,17 @@ est complet. On commence par remplacer la racine par le dernier élément (Eleme
 niveau le plus bas). Ensuite on effectue des swap à partir de la racine pour garantir que les clés 
 sont bien ordonnées.
 
-![./Quick sheets - page 709.png]
+![img](./Quick sheets - page 709.png)
+
+## Question 4
+
+- Pour $h=0$: $O \leq n \leq 1$
+- Pour $h=1$: $0+2 \leq n \leq 1+2$
+- Pour $h=2$: $ 0+2+2 \leq n \leq 1+2+4 $
+- ...
+- Pour $h$: $2^h \leq n \leq \sum_{i=0}^n2^i = 2^{n+1}-1$
+
+## Question 5
+
+
+
