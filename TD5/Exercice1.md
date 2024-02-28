@@ -21,7 +21,7 @@ On insère les éléments sur la gauche en premier. On vérifie que l'élément 
 grande que celle de son père. Si ce n'est pas le cas, on fait un swap et on vérifie si le changement 
 reste valide jusqu'à la racine si nécéssaire.  
 
-![img](./Quick sheets - page 708.png)
+![img](https://github.com/Supre-le-sucre/LU2IN006-Structures/blob/all/Quick sheets - page 708.jpg?raw=true)
 
 ## Question 3
 
